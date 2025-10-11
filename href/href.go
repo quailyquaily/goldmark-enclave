@@ -93,15 +93,17 @@ func (r *hrefRenderer) renderHref(w util.BufWriter, source []byte, node ast.Node
 			rel = []string{"rel", "noopener"}
 		}
 	}
-	if r.shouldUseBlankTargetLink(dst) {
-		rel = append(rel, "target")
-		rel = append(rel, "_blank")
-	}
+
 	attrs := [][]string{
 		{"href", dst},
 		{"title", title},
 		rel,
 	}
+
+	if r.shouldUseBlankTargetLink(dst) {
+		attrs = append(attrs, []string{"target", "_blank"})
+	}
+
 	tag := helper.HTMLTag("a", attrs)
 
 	_, _ = w.Write(tag)
