@@ -170,11 +170,13 @@ func (a *astTransformer) Transform(node *ast.Document, reader text.Reader, pc pa
 			}
 
 		} else if u.Host == "www.podbean.com" || u.Host == "podbean.com" {
-			// Example: https://www.podbean.com/ew/pb-s9x5a-196f966
+			// Examples:
+			//  - https://www.podbean.com/ew/pb-s9x5a-196f966
+			//  - https://www.podbean.com/eas/pb-s9x5a-196f966
 			// Convert path segment `pb-<a>-<b>` to embed id `i=<a>-<b>-pb`
 			provider = core.EnclaveProviderPodbean
-			if strings.HasPrefix(u.Path, "/ew/") {
-				re := regexp.MustCompile(`^/ew/pb-([a-zA-Z0-9]+)-([a-zA-Z0-9]+)$`)
+			if strings.HasPrefix(u.Path, "/ew/") || strings.HasPrefix(u.Path, "/eas/") {
+				re := regexp.MustCompile(`^/(?:ew|eas)/pb-([a-zA-Z0-9]+)-([a-zA-Z0-9]+)$`)
 				if re.MatchString(u.Path) {
 					m := re.FindStringSubmatch(u.Path)
 					if len(m) == 3 {

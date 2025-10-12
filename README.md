@@ -83,6 +83,10 @@ Podbean Embed
 
 ![](https://www.podbean.com/ew/pb-s9x5a-196f966)
 
+Podbean also supports the `eas` URL variant:
+
+![](https://www.podbean.com/eas/pb-s9x5a-196f966)
+
 Podbean Dark Theme
 
 ![](https://www.podbean.com/ew/pb-s9x5a-196f966?theme=dark)
