@@ -16,6 +16,7 @@ const (
 	EnclaveProviderQuailImage  = "quail-image"
 	EnclaveProviderQuailAd     = "quail-ad"
 	EnclaveProviderSpotify     = "spotify"
+	EnclaveProviderPodbean     = "podbean"
 	EnclaveRegularImage        = "regular-image"
 	EnclaveHtml5Audio          = "html5-audio"
 )

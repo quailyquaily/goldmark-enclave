@@ -24,6 +24,7 @@ This [goldmark](http://github.com/yuin/goldmark) extension extend commonmark syn
 - [x] Add options to images
 - [x] [dify.ai](https://dify.ai) Widget
 - [x] [Spotify](https://spotify.com) Embed
+- [x] [Podbean](https://podbean.com) Embed
 - [x] html5 audio
 
 ### Usage
@@ -78,6 +79,14 @@ Spotify Embed
 
 ![](https://open.spotify.com/track/5vdp5UmvTsnMEMESIF2Ym7?si=d4ee09bfd0e941c5)
 
+Podbean Embed
+
+![](https://www.podbean.com/ew/pb-s9x5a-196f966)
+
+Podbean Dark Theme
+
+![](https://www.podbean.com/ew/pb-s9x5a-196f966?theme=dark)
+
 HTML5 Audio
 
 ![](https://cdn1.suno.ai/fc991b95-e4e9-4c8f-87e8-e5e4560755e7.mp3)
@@ -87,8 +96,8 @@ HTML5 Audio
 
 Some objects support options:
 
-- `theme`: The theme of the TradingView chart, twitter tweet and quaily widget. Default: `light`
-  - e.g. `![](https://twitter.com/NASA/status/1704954156149084293?theme=dark)`
+- `theme`: The theme of the TradingView chart, twitter tweet, Podbean player and Quaily widget. Default: `light`
+  - e.g. `![](https://twitter.com/NASA/status/1704954156149084293?theme=dark)` or `![](https://www.podbean.com/ew/pb-s9x5a-196f966?theme=dark)`
 - `width` / `w` and `height` / `h`: The width and height of images. Default: `auto`
   - e.g. `![](https://your-image.com/image.png?w=100px)`
   - Please refer to [image size and alignment](#image-size-and-alignment)

@@ -169,6 +169,21 @@ func (a *astTransformer) Transform(node *ast.Document, reader text.Reader, pc pa
 				}
 			}
 
+		} else if u.Host == "www.podbean.com" || u.Host == "podbean.com" {
+			// Example: https://www.podbean.com/ew/pb-s9x5a-196f966
+			// Convert path segment `pb-<a>-<b>` to embed id `i=<a>-<b>-pb`
+			provider = core.EnclaveProviderPodbean
+			if strings.HasPrefix(u.Path, "/ew/") {
+				re := regexp.MustCompile(`^/ew/pb-([a-zA-Z0-9]+)-([a-zA-Z0-9]+)$`)
+				if re.MatchString(u.Path) {
+					m := re.FindStringSubmatch(u.Path)
+					if len(m) == 3 {
+						oid = fmt.Sprintf("%s-%s-pb", m[1], m[2])
+					}
+				}
+			}
+			theme = u.Query().Get("theme")
+
 		} else if strings.HasSuffix(strings.ToLower(u.Path), ".mp3") {
 			// this is a mp3 file
 			provider = core.EnclaveHtml5Audio

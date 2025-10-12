@@ -127,6 +127,15 @@ func (r *HTMLRenderer) renderEnclave(w util.BufWriter, source []byte, node ast.N
 		}
 		w.Write([]byte(html))
 
+	case core.EnclaveProviderPodbean:
+		html, err := object.GetPodbeanHtml(enc)
+		if err != nil || html == "" {
+			html = r.wrapEnclaveErrorHtml("podbean", enc.ObjectID)
+		} else {
+			html = r.wrapEnclaveHtml("podbean", html, true, false)
+		}
+		w.Write([]byte(html))
+
 	case core.EnclaveHtml5Audio:
 		html, err := object.GetAudioHtml(enc)
 		if err != nil || html == "" {
