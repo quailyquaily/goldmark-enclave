@@ -110,9 +110,9 @@ It supports two forms of Obsidian-style image syntax:
 
 ```
 ![alt text](https://example.com/image.png|200 "title")
-``` 
+```
 
-or 
+or
 
 ```
 ![alt text|200x300](https://example.com/image.png "title")
