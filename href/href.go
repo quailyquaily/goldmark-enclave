@@ -21,9 +21,9 @@ type (
 		cfg *Config
 	}
 	Config struct {
-		NoFollowByDefault    bool
-		DoFollowDomains      []string
-		NoBlankTargetDomains []string
+		NoFollowByDefault  bool
+		DoFollowDomains    []string
+		BlankTargetDomains []string
 	}
 )
 
@@ -131,17 +131,17 @@ func (r *hrefRenderer) shouldFollowLink(link string) bool {
 }
 
 func (r *hrefRenderer) shouldUseBlankTargetLink(link string) bool {
-	if len(r.cfg.NoBlankTargetDomains) == 0 {
-		return true
+	if len(r.cfg.BlankTargetDomains) == 0 {
+		return false
 	}
 	u, err := url.Parse(link)
 	if err != nil {
-		return true
+		return false
 	}
-	for _, domain := range r.cfg.NoBlankTargetDomains {
+	for _, domain := range r.cfg.BlankTargetDomains {
 		if strings.EqualFold(u.Host, domain) {
-			return false
+			return true
 		}
 	}
-	return true
+	return false
 }
