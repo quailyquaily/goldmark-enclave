@@ -25,6 +25,14 @@ func (a *astTransformer) InsertFailedHint(n ast.Node, msg string) {
 }
 
 func (a *astTransformer) Transform(node *ast.Document, reader text.Reader, pc parser.Context) {
+	type replaceOp struct {
+		parent ast.Node
+		old    ast.Node
+		new    ast.Node
+	}
+
+	var ops []replaceOp
+
 	replaceImages := func(n ast.Node, entering bool) (ast.WalkStatus, error) {
 		if !entering {
 			return ast.WalkContinue, nil
@@ -276,22 +284,19 @@ func (a *astTransformer) Transform(node *ast.Document, reader text.Reader, pc pa
 				})
 
 			parent := n.Parent()
-			// fmt.Printf("parent: %v\n", parent.Kind())
-
-			// clear the content of the parent node
-			// parent.RemoveChildren(parent)
-			// add the new enclave node to
-			parent.AppendChild(parent, ev)
-
-			// n.Parent().ReplaceChild(n.Parent(), n, ev)
-
-			// for child := parent.FirstChild(); child != nil; child = child.NextSibling() {
-			// 	fmt.Printf("child of parent: %+v\n", child)
-			// }
+			// Schedule an in-place replacement to preserve original order
+			ops = append(ops, replaceOp{parent: parent, old: n, new: ev})
 		}
 
 		return ast.WalkContinue, nil
 	}
 
 	ast.Walk(node, replaceImages)
+
+	// Apply scheduled replacements after walking to avoid mutating during traversal
+	for _, op := range ops {
+		if op.parent != nil && op.old != nil && op.new != nil {
+			op.parent.ReplaceChild(op.parent, op.old, op.new)
+		}
+	}
 }
